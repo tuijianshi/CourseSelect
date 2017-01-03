@@ -11,6 +11,30 @@
         <div class="panel-heading">
           <% if teacher_logged_in? %><h3 class="panel-title">授课列表</h3><% end %>
           <% if student_logged_in? %><h3 class="panel-title">已选课程</h3><% end %>
+          
+            <% 
+                   s_score=0
+                   s_xuewei=0
+                   flag=false
+                   
+                    @course.each do |course|
+                       flag=false
+                      if course.course_type=="专业核心课" or course.course_type=="一级学科核心课"
+                        flag=true
+                      end
+                      
+                      c=course.credit.split("/")
+                      s_score =s_score + c[1].to_f
+                      if flag==true
+                        s_xuewei=s_xuewei+c[1].to_f
+                      end
+                      
+                    end
+                  %>
+
+                  <h3 class="panel-title">已选的总学分<%= s_score %></h3> 
+                  <h3 class="panel-title">学位课<%= s_xuewei %></h3>   
+                  <h3 class="panel-title">非学位<%= s_score-s_xuewei %></h3> 
         </div>
 
         <div class="panel-body">
@@ -36,11 +60,17 @@
 
                   <% if teacher_logged_in? %>
                       <td><%= link_to "编辑", edit_course_url(course), class: 'btn btn-xs btn-info' %></td>
+                  <% if course.open==true %>
+                      <td><%= link_to "关闭", close_course_url(course), class: 'btn btn-xs btn- warning' %></td>
+                  <% else %>
+                      <td><%= link_to "开课", open_course_url(course), class: 'btn btn-xs btn-info' %></td>
+                  <% end %>
                       <td><%= link_to "删除", course_path(course), :method => "delete", class: 'btn btn-xs btn-danger', :data => {confirm: '确定要删除此课程?'} %></td>
                   <% elsif student_logged_in? %>
                       <td><%= link_to "删除", quit_course_path(course), class: 'btn-sm btn-danger' %></td>
                   <% end %>
-                </tr>
+                  
+                  </tr>
             <% end %>
             </tbody>
           </table>

@@ -13,6 +13,8 @@
             <a data-toggle="collapse" data-parent="#accordion" href="#CourseCollapse"><span class="glyphicon glyphicon-user"></span>
               选修课程</a>
         <% end %>
+        
+          
 
       </h4>
     </div>
@@ -65,8 +67,75 @@
             <a data-toggle="collapse" data-parent="#accordion" href="#GradeCollapse"><span class="glyphicon glyphicon-user"></span>
               所有成绩</a>
         <% end %>
+        
+        
       </h4>
     </div>
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Bootstrap学分统计表</title>
+	<link rel="stylesheet" href="https://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">  
+	<script src="https://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="table-responsive">
+	<table class="table">
+		<caption>学分统计</caption>
+		<thead>
+			<tr>
+				<th>总学分</th>
+				<th>20</th>
+				
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<th>学位课</th>
+				<th>12</th>
+				
+			</tr>
+			<tr>
+				<td>公共必修课</td>
+				<td>3</td>
+		
+			</tr>
+			<tr>
+				<td>专业学位课</td>
+				<td>5</td>
+	
+			</tr>
+			<tr>
+				<th>非学位课</th>
+				<th>16</th>
+			<tr>
+				<td>公共必修课</td>
+				<td>3</td>
+		
+			</tr>
+			<tr>
+				<td>专业学位课</td>
+				<td>5</td>
+	
+			</tr>
+		</tbody>
+</table>
+</div>  	
+
+</body>
+</html>
+
+
+
+
+
+
 
     <div id="GradeCollapse" class="panel-collapse collapse <%= "in" if ["grades"].include?(params[:controller]) %>">
       <div class="list-group">

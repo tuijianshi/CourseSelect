@@ -46,8 +46,15 @@ class CoursesController < ApplicationController
   #-------------------------for students----------------------
 
   def list
+    @opened=Array.new
     @course=Course.all
     @course=@course-current_user.courses
+    @course.each do |course|
+      if course.open=true then
+        @opened = @opened.push(course)
+      end
+    end
+    @course = @opened
   end
 
   def select
@@ -71,6 +78,27 @@ class CoursesController < ApplicationController
     @course=current_user.teaching_courses if teacher_logged_in?
     @course=current_user.courses if student_logged_in?
   end
+
+
+
+
+
+
+def open
+   @course=Course.find_by_id(params[:id])
+    @course.update_attribute(:open, true)
+    redirect_to courses_path, flash: {:success => "已经成功开启该课程:#{ @course.name}"}
+end
+
+def close
+    @course=Course.find_by_id(params[:id])
+    @course.update_attribute(:open, false)
+    redirect_to courses_path, flash: {:success => "已经成功关闭该课程:#{ @course.name}"}
+end
+
+
+
+
 
 
   private
